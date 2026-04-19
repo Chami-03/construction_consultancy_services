@@ -20,11 +20,17 @@ if (navMenu && navToggle) {
   });
 }
 
-const currentPage = window.location.pathname.split("/").pop() || "index.html";
+const pathName = window.location.pathname;
+const currentPage = pathName.split("/").pop() || "index.html";
+const isHomePath = pathName === "/" || pathName.endsWith("/index.html");
 const navLinks = Array.from(document.querySelectorAll(".nav-link"));
 navLinks.forEach((link) => {
   const href = link.getAttribute("href");
-  if (href === currentPage || (currentPage === "" && href === "index.html")) {
+  if (
+    (href === "/" && isHomePath) ||
+    href === currentPage ||
+    (href === "index.html" && isHomePath)
+  ) {
     link.classList.add("active");
   }
 
